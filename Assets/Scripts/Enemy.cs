@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Rigidbody2D>() == null) return;
 
-        if (collision.gameObject.tag == "Bird") {
+        if (collision.gameObject.tag == "Bird" || collision.gameObject.tag == "Border") {
 
             _isHit = true;
             Destroy(gameObject);
@@ -37,5 +37,10 @@ public class Enemy : MonoBehaviour
 
             }
         }
+    }
+
+    public void SetHit(bool isHit)
+    {
+        _isHit = isHit;
     }
 }

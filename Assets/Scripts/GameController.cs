@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private UIController UIController;
     public Slingshooter Slingshooter;
     public TrailController TrailController;
     public BoxCollider2D TapCollider;
@@ -11,10 +12,15 @@ public class GameController : MonoBehaviour
     public List<Bird> Birds;
     public List<Enemy> Enemies;
 
-    private bool _isGameEnded = false;
+    private bool _isGameEnded = false;    
     private Bird _shotBird;
 
+    public static bool IsPaused = false;
+
     void Start() {
+        _isGameEnded = false;
+        IsPaused = false;        
+
         for(int i = 0; i < Birds.Count; i++) {
             Birds[i].OnBirdDestroyed += ChangeBird;
             Birds[i].OnBirdShot += AssignTrails;
@@ -29,7 +35,26 @@ public class GameController : MonoBehaviour
         _shotBird = Birds[0];        
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            IsPaused = true;
+        }
+
+        if (_isGameEnded || IsPaused)
+        {
+            // show pause screen
+            string text = _isGameEnded ? "Game Over" : "Paused";
+            UIController.ChangeTitlePause(text);
+            UIController.SetActiveContinueButton(_isGameEnded ? false : true);
+            UIController.ShowPauseScreen();
+            IsPaused = true;
+        }
+    }
+
     public void ChangeBird() {
+        if (!TapCollider) return;
 
         TapCollider.enabled = false;
 

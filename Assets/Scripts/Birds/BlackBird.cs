@@ -18,6 +18,17 @@ public class BlackBird : Bird
             {
                 Vector2 direction = obj.transform.position - transform.position;
                 obj.GetComponent<Rigidbody2D>().AddForce(direction * explodeForce);
+                if (obj.tag == "Enemy")
+                {                    
+                    Enemy enemy = obj.GetComponent<Enemy>();
+                    enemy.Health -= explodeForce;
+                    if (enemy.Health <= 0)
+                    {
+                        enemy.SetHit(true);
+                        Destroy(enemy.gameObject);
+
+                    }
+                }
             }
             
             _hasExploded = true;
