@@ -12,10 +12,12 @@ public class GameController : MonoBehaviour
     public List<Bird> Birds;
     public List<Enemy> Enemies;
 
-    private bool _isGameEnded = false;    
+    private bool _isGameEnded = false;
+    private bool _isWin = false;
     private Bird _shotBird;
 
     public static bool IsPaused = false;
+    
 
     void Start() {
         _isGameEnded = false;
@@ -45,7 +47,7 @@ public class GameController : MonoBehaviour
         if (_isGameEnded || IsPaused)
         {
             // show pause screen
-            string text = _isGameEnded ? "Game Over" : "Paused";
+            string text = _isGameEnded ? (_isWin ? "You Win!": "You Lose") : "Paused";
             UIController.ChangeTitlePause(text);
             UIController.SetActiveContinueButton(_isGameEnded ? false : true);
             UIController.ShowPauseScreen();
@@ -64,7 +66,16 @@ public class GameController : MonoBehaviour
 
         if (Birds.Count > 0) {
             Slingshooter.InitiateBird(Birds[0]);
-            _shotBird = Birds[0];
+            _shotBird = Birds[0];            
+        } else {            
+            if (Enemies.Count == 0) {
+                _isWin = true;
+            } else {
+                _isWin = false;
+            }
+
+            StartCoroutine(GameOver(3));
+
         }
     }
 
@@ -77,7 +88,8 @@ public class GameController : MonoBehaviour
         }
 
         if (Enemies.Count == 0) {
-            _isGameEnded = true;
+            _isWin = true;
+            StartCoroutine(GameOver(3));
         }
     }
 
@@ -91,5 +103,10 @@ public class GameController : MonoBehaviour
         if (_shotBird != null) {
             _shotBird.OnTap();
         }
+    }
+
+    private IEnumerator GameOver(float second) {
+        yield return new WaitForSeconds(second);
+        _isGameEnded = true;
     }
 }

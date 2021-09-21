@@ -48,11 +48,12 @@ public class Bird : MonoBehaviour
     }
 
     private IEnumerator DetroyAfter(float second) {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(second);
         Destroy(gameObject);
     }
 
     public void MoveTo(Vector2 target, GameObject parent) {
+        if (!parent) return; // to prevent error but not that critical
         gameObject.transform.SetParent(parent.transform);
         gameObject.transform.position = target;
     }
