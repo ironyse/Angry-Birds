@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
 
     public static bool IsPaused = false;
     
-
+    // pengaturan awal saat game baru dimulai
     void Start() {
         _isGameEnded = false;
         IsPaused = false;        
@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour
         _shotBird = Birds[0];        
     }
 
+
+    // memunculkan UI game over ketika game over atau game paused
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -55,6 +57,8 @@ public class GameController : MonoBehaviour
         }
     }
 
+
+    // mengganti bird yang akan dilontarkan lalu mengecek bila birds kosong maka game berakhir
     public void ChangeBird() {
         if (!TapCollider) return;
 
@@ -79,6 +83,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // menghapus enemy yang terdestroy pada list kemudian mengecek bila list kosong maka game berakhir
     public void CheckGameEnd(GameObject destroyedEnemy) {
         for (int i = 0; i < Enemies.Count; i++) {
             if (Enemies[i].gameObject == destroyedEnemy) {

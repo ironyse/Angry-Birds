@@ -10,6 +10,9 @@ public class BlackBird : Bird
 
     public GameObject explosionObj;
 
+
+    // membuat object ledakan di posisi black bird menyentuh target dan memberikan gaya pada object lainnya yang berada pada radius ledakan
+    
     public void Explode() {
         if (!_hasExploded) {
             Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, explodeRadius, LayerToExplode);

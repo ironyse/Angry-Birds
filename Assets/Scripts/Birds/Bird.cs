@@ -25,6 +25,7 @@ public class Bird : MonoBehaviour
         _state = BirdState.Idle;
     }
 
+    // checks kalau bird telah dilontarkan/ menyentuh sesuatu, dan menandai bird untuk dihancurkan bila bird memiliki velocity lebih rendah dari minvelocity
     void FixedUpdate() {
 
         if (_state == BirdState.Idle && RigidBody.velocity.sqrMagnitude >= _minVelocity) {
@@ -58,6 +59,7 @@ public class Bird : MonoBehaviour
         gameObject.transform.position = target;
     }
 
+    // menyalakan kembali collider bird ketika dilontarkan
     public void Shoot(Vector2 velocity, float distance, float speed) {
         Collider.enabled = true;
         RigidBody.bodyType = RigidbodyType2D.Dynamic;

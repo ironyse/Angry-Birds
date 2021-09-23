@@ -2,6 +2,9 @@
 
 public class Destroyer : MonoBehaviour
 {
+
+    // mendestroy object yang menyentuh dinding batas
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string tag = collision.gameObject.tag;

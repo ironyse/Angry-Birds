@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // mendeteksi tubrukan antara enemy dengan objek lain, jika bertubrukan dengan bird/border maka enemy akan dihancurkan
+    // bila menyentuh dengan objek wall/obstacle maka darah enemy akan berkurang
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<Rigidbody2D>() == null) return;
