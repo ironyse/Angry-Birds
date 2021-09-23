@@ -20,14 +20,16 @@ public class GameController : MonoBehaviour
     
 
     void Start() {
+        // pengaturan awal saat game baru dimulai
         _isGameEnded = false;
         IsPaused = false;        
 
+        // menambahkan delegate event pada birds ketika bird ditembakkan dan dihancurkan
         for(int i = 0; i < Birds.Count; i++) {
             Birds[i].OnBirdDestroyed += ChangeBird;
             Birds[i].OnBirdShot += AssignTrails;
         }
-
+        // menambahkan delegate event pada enemies ketika enemy dihancurkan
         for (int i = 0; i < Enemies.Count; i++) {
             Enemies[i].OnEnemyDestroyed += CheckGameEnd;
         }
@@ -39,11 +41,13 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        // mengecek input setiap frame
         if (Input.GetKeyDown(KeyCode.P))
         {
             IsPaused = true;
         }
 
+        // menampilkan pause/game over screen
         if (_isGameEnded || IsPaused)
         {
             // show pause screen
@@ -57,8 +61,8 @@ public class GameController : MonoBehaviour
 
     public void ChangeBird() {
         if (!TapCollider) return;
-
-        TapCollider.enabled = false;
+        //mematikan tap collider ketika sedang proses penggantian bird
+        TapCollider.enabled = false; 
 
         if (_isGameEnded) return;
 

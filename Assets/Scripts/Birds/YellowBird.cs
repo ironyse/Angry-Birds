@@ -7,6 +7,7 @@ public class YellowBird : Bird
     public bool _hasBoost = false;
 
     public void Boost() { 
+        // menambahkan gaya pada bird ketika method boost dipanggil
         if (State == BirdState.Thrown && !_hasBoost) {
             RigidBody.AddForce(RigidBody.velocity * _boostForce);
             _hasBoost = true;

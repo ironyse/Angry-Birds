@@ -27,10 +27,12 @@ public class Bird : MonoBehaviour
 
     void FixedUpdate() {
 
+        // mengubah state bird ketika rigidbody dari bird memiliki velocity lebih dari velocity minimal
         if (_state == BirdState.Idle && RigidBody.velocity.sqrMagnitude >= _minVelocity) {
             _state = BirdState.Thrown;
         }
 
+        // menandai bird untuk dihancurkan ketika bird telah dilempar/mengenai object lain dan memiliki velocity lebih rendah dari velocity minimal
         if (
             (_state == BirdState.Thrown || _state == BirdState.HitSomething)
             && RigidBody.velocity.sqrMagnitude < _minVelocity 
@@ -53,7 +55,7 @@ public class Bird : MonoBehaviour
     }
 
     public void MoveTo(Vector2 target, GameObject parent) {
-        if (!parent) return; // to prevent error but not that critical
+        if (!parent) return; // to prevent error
         gameObject.transform.SetParent(parent.transform);
         gameObject.transform.position = target;
     }
